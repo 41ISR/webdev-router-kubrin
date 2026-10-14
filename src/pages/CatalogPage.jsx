@@ -1,7 +1,13 @@
 import ProductCard from '../components/ProductCard.jsx';
 import CategoryFilter from '../components/CategoryFilter.jsx';
+import { products } from '../data/products.js';
+import { useSearchParams } from 'react-router-dom';
 
-export default function CatalogPage({ products, categories, activeCategory, onSelectCategory, onSelectProduct }) {
+export default function CatalogPage() {
+  const [searchParams] = useSearchParams()
+  const activeCategory = searchParams.get('category') || ""
+
+
   const visibleProducts = activeCategory
     ? products.filter(p => p.category === activeCategory)
     : products;
@@ -11,11 +17,14 @@ export default function CatalogPage({ products, categories, activeCategory, onSe
       <p className="page-eyebrow">Каталог</p>
       <h1 className="page-title">Все растения</h1>
 
-      <CategoryFilter categories={categories} activeCategory={activeCategory} onSelect={onSelectCategory} />
-
+      <CategoryFilter />
+      
       <div className="product-grid">
-        {visibleProducts.map(product => (
-          <ProductCard key={product.id} product={product} onSelect={onSelectProduct} />
+        
+          {visibleProducts.map((product) =>(
+            <ProductCard key={product.id}
+            product={product} />
+           
         ))}
       </div>
     </section>
