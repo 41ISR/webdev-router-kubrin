@@ -1,14 +1,16 @@
+import { useNavigate } from 'react-router-dom';
 import StatusBlock from '../components/StatusBlock.jsx';
 
-export default function NotFoundPage({ path, onGoHome }) {
+export default function NotFoundPage() {
+  const navigate = useNavigate() 
   return (
     <section className="page-shell">
       <StatusBlock
         emoji="🍂"
         title="Такой страницы нет"
-        subtitle={`Путь "${path}" не совпал ни с одним маршрутом.`}
+        subtitle={`Путь не совпал ни с одним маршрутом.`}
         actionLabel="Вернуться на главную"
-        onAction={onGoHome}
+        onAction={() => navigate('/')}
       />
     </section>
   );
